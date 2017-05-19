@@ -20,7 +20,7 @@ func TestPcmBytes2WavBytes(t *testing.T) {
 		assert.Error(t, err)
 	}
 
-	resultWav, err := PcmBytes2WavBytes(testPcm, 1, 16000, 16)
+	resultWav, err := ConvertBytes(testPcm, 1, 16000, 16)
 	if err != nil {
 		assert.Error(t, err)
 	}

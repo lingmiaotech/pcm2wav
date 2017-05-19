@@ -100,7 +100,7 @@ func (c *dataSubChunk) applySubchunk2Size(subchunk2Size int) {
 	applyLittleEndianInteger(c.Subchunk2Size[:], subchunk2Size, 4)
 }
 
-func PcmBytes2WavBytes(pcm []byte, channels int, sampleRate int, bitsPerSample int) (wav []byte, err error) {
+func ConvertBytes(pcm []byte, channels int, sampleRate int, bitsPerSample int) (wav []byte, err error) {
 	if channels != 1 && channels != 2 {
 		return wav, errors.New("invalid_channels_value")
 	}
