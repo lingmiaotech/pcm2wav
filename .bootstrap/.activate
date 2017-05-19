@@ -1,0 +1,28 @@
+# This file must be used with "source activate" or ". activate"
+
+if [[ -n "${VIRTUAL_ENV}" ]]; then
+	deactivate
+fi
+
+PROJECT=$(basename $PWD)
+export VIRTUAL_ENV=$PROJECT
+export VIRTUAL_ENV_OLDPS1=$PS1
+export VIRTUAL_ENV_OLDGOPATH=$GOPATH
+export VIRTUAL_ENV_OLDPATH=$PATH
+
+export GOPATH=$PWD/env
+export PATH="$PWD/scripts:$GOPATH/bin:$PATH"
+export PS1="($(basename $GOPATH))$PS1"
+
+mkdir -p $(dirname $GOPATH/src/$PROJECT)
+rm -f $GOPATH/src/$PROJECT
+ln -s $PWD $GOPATH/src/$PROJECT
+
+deactivate() {
+	export PS1=$VIRTUAL_ENV_OLDPS1
+	export GOPATH=$VIRTUAL_ENV_OLDGOPATH
+	export PATH=$VIRTUAL_ENV_OLDPATH
+
+	unset VIRTUAL_ENV VIRTUAL_ENV_OLDPS1 VIRTUAL_ENV_OLDPATH VIRTUAL_ENV_OLDGOPATH
+	unset -f deactivate
+}
